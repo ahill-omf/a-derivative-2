@@ -1,0 +1,22 @@
+schemaVersion: 2.2.0
+metadata:
+  name: blueprint
+parent:
+  uri: https://raw.githubusercontent.com/ahill-omf/final-ancestor/main/devfile.yaml
+projects:
+  - name: final-blueprint
+    git:
+      remotes:
+        origin: "https://github.com/ahill-omf/final-blueprint.git"
+commands:
+  - id: init-workspace
+    exec:
+      label: "Clone ancestor repo"
+      commandLine: "/usr/local/bin/ansible-playbook $PROJECT_SOURCE/.init/clone_ancestor.yml"
+      group:
+        kind: build
+        isDefault: false
+      component: tooling-container
+events:
+  postStart:
+    - init-workspace
